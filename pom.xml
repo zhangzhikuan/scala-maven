@@ -9,8 +9,8 @@
     <inceptionYear>2010</inceptionYear>
     <licenses>
         <license>
-            <name>My License</name>
-            <url>http://....</url>
+            <name>kuan License</name>
+            <url>http://wwww.luckuan.me</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -21,10 +21,57 @@
         <encoding>UTF-8</encoding>
         <scala.tools.version>2.11</scala.tools.version>
         <scala.version>2.11.11</scala.version>
+        <spark.version>2.1.1</spark.version>
+        <kafka.version>0.10.2.1</kafka.version>
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka_2.11 -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_${scala.tools.version}</artifactId>
+            <version>${kafka.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+            <version>${kafka.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.10 -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-core_${scala.tools.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming_${scala.tools.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming-kafka-0-10_${scala.tools.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql_${scala.tools.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-hive_${scala.tools.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
