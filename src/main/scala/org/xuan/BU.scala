@@ -1,13 +1,21 @@
 package org.xuan
 
-import org.apache.spark.AccumulatorParam.LongAccumulatorParam
+import java.io.{File, FileWriter}
+import java.sql.Timestamp
+
+import org.apache.commons.io.FileUtils
+import org.apache.spark.sql.{ForeachWriter, Row}
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.streaming.StreamingContext
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.functions._
+
+import scala.concurrent.duration._
+import org.apache.spark.sql.streaming.ProcessingTime
 
 /**
   * Created by zhangzhikuan on 27/6/2017.
   */
+case class GB(timestamp: Timestamp, word: String)
+
 object BU {
   def main(args: Array[String]): Unit = {
 
@@ -23,22 +31,31 @@ object BU {
       .getOrCreate()
 
     import spark.implicits._
+
+
     val lines = spark.readStream
       .format("socket")
       .option("host", "localhost")
       .option("port", 9999)
+      .option("includeTimestamp", true)
       .load()
 
-    // Split the lines into words
-    val words = lines.as[String].flatMap(_.split(" "))
+    // Split the lines into words, retaining timestamps
+    val words = lines.as[(String, Timestamp)].flatMap(line =>
+      line._1.split(" ").map(word => (word, line._2))
+    ).toDF("word", "timestamp")
 
-    // Generate running word count
-    val wordCounts = words.groupBy("value").count()
 
-    // Start running the query that prints the running counts to the console
-    val query = wordCounts.writeStream
+    val windowedCounts =
+      words.groupBy(
+        //        window($"timestamp", "10 seconds", "5 seconds"), $"word"
+        window($"timestamp", "10 seconds")
+      ).count()
+
+    val query = windowedCounts.writeStream
       .outputMode("update")
       .format("console")
+      .trigger(ProcessingTime(5.seconds))
       .start()
 
     query.awaitTermination()
