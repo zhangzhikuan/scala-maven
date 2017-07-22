@@ -26,7 +26,7 @@
         <scala.tools.version>2.11</scala.tools.version>
         <scala.version>2.11.11</scala.version>
         <spark.version>2.1.1</spark.version>
-        <kafka.version>0.10.2.1</kafka.version>
+        <kafka.version>0.8.2.2</kafka.version>
     </properties>
 
 
@@ -38,7 +38,6 @@
                 <artifactId>jedis</artifactId>
                 <version>2.9.0</version>
             </dependency>
-
             <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
@@ -56,7 +55,6 @@
                 <artifactId>jersey-server</artifactId>
                 <version>1.19.4</version>
             </dependency>
-
             <!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-server -->
             <dependency>
                 <groupId>com.sun.jersey</groupId>
@@ -69,7 +67,6 @@
                 <artifactId>fastjson</artifactId>
                 <version>1.2.34</version>
             </dependency>
-
             <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka_2.11 -->
             <dependency>
                 <groupId>org.apache.kafka</groupId>
@@ -81,22 +78,21 @@
                 <artifactId>kafka-streams</artifactId>
                 <version>${kafka.version}</version>
             </dependency>
-
             <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.10 -->
             <dependency>
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-core_${scala.tools.version}</artifactId>
                 <version>${spark.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-streaming_${scala.tools.version}</artifactId>
                 <version>${spark.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.apache.spark</groupId>
-                <artifactId>spark-streaming-kafka-0-10_${scala.tools.version}</artifactId>
+                <artifactId>spark-streaming-kafka-0-8_${scala.tools.version}</artifactId>
                 <version>${spark.version}</version>
             </dependency>
             <dependency>
@@ -114,15 +110,12 @@
                 <artifactId>scala-library</artifactId>
                 <version>${scala.version}</version>
             </dependency>
-
             <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>1.2.34</version>
             </dependency>
-
-
             <!-- Test -->
             <dependency>
                 <groupId>junit</groupId>
@@ -130,7 +123,6 @@
                 <version>4.12</version>
                 <scope>test</scope>
             </dependency>
-
             <!-- https://mvnrepository.com/artifact/org.specs2/specs2-core_2.11 -->
             <dependency>
                 <groupId>org.specs2</groupId>
@@ -145,7 +137,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-
             <dependency>
                 <groupId>org.scalatest</groupId>
                 <artifactId>scalatest_${scala.tools.version}</artifactId>
@@ -159,7 +150,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-
             <dependency>
                 <groupId>org.specs2</groupId>
                 <artifactId>specs2-junit_${scala.tools.version}</artifactId>
@@ -175,69 +165,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <sourceDirectory>src/main/scala</sourceDirectory>
-        <testSourceDirectory>src/test/scala</testSourceDirectory>
-        <plugins>
-            <plugin>
-                <!-- see http://davidb.github.com/scala-maven-plugin -->
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>3.2.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>testCompile</goal>
-                        </goals>
-                        <configuration>
-                            <args>
-                                <arg>-dependencyfile</arg>
-                                <arg>${project.build.directory}/.scala_dependencies</arg>
-                            </args>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
-                <configuration>
-                    <useFile>false</useFile>
-                    <disableXmlReport>true</disableXmlReport>
-                    <!-- If you have classpath issue like NoDefClassError,... -->
-                    <!-- useManifestOnlyJar>false</useManifestOnlyJar -->
-                    <includes>
-                        <include>**/*Test.*</include>
-                        <include>**/*Suite.*</include>
-                    </includes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>org.xuan.App</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
