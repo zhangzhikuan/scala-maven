@@ -33,6 +33,7 @@
         <specs2.version>3.8.9</specs2.version>
         <scalatest.version>3.0.3</scalatest.version>
         <junit.version>4.12</junit.version>
+        <fastjson.version>1.2.35</fastjson.version>
     </properties>
 
 
@@ -43,6 +44,12 @@
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>${redis.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
             <dependency>
