@@ -1,14 +1,10 @@
-package org.xuan
+package com.xuan
 
-import com.sun.jersey.spi.container.servlet.ServletContainer
-import org.apache.spark.AccumulatorParam.LongAccumulatorParam
 import org.apache.spark.sql.SQLContext
-import org.apache.spark.{Accumulator, SparkConf, SparkContext}
+import org.apache.spark.{SparkConf, SparkContext}
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.servlet.{ServletContextHandler, ServletHolder}
-
-import scala.collection.mutable.Map
-
+import org.glassfish.jersey.servlet.ServletContainer
 
 object App {
 
@@ -38,6 +34,4 @@ object App {
     context.addServlet(sh, "/*")
     server.start()
   }
-
-
 }
