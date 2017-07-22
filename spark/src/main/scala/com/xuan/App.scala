@@ -37,6 +37,7 @@ object App {
       rdd =>
         rdd.foreach(println)
     }
+
     ssc.start()
     ssc.awaitTermination()
   }

@@ -34,6 +34,7 @@
         <scalatest.version>3.0.3</scalatest.version>
         <junit.version>4.12</junit.version>
         <fastjson.version>1.2.35</fastjson.version>
+        <spark.scope>compile</spark.scope>
     </properties>
 
 
@@ -85,11 +86,13 @@
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-core_${scala.tools.version}</artifactId>
                 <version>${spark.version}</version>
+                <scope>${spark.scope}</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-streaming_${scala.tools.version}</artifactId>
                 <version>${spark.version}</version>
+                <scope>${spark.scope}</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.spark</groupId>
@@ -100,11 +103,14 @@
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-sql_${scala.tools.version}</artifactId>
                 <version>${spark.version}</version>
+                <scope>${spark.scope}</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-hive_${scala.tools.version}</artifactId>
                 <version>${spark.version}</version>
+                <scope>${spark.scope}</scope>
             </dependency>
             <dependency>
                 <groupId>org.scala-lang</groupId>
@@ -160,4 +166,29 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+
+
+
+    <profiles>
+        <profile>
+            <!-- 本地开发环境 -->
+            <id>dev</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+                <spark.scope>compile</spark.scope>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <!-- 生产环境 -->
+            <id>prod</id>
+            <properties>
+                <spark.active>prod</spark.active>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>
