@@ -184,9 +184,9 @@
         </profile>
         <profile>
             <!-- 生产环境 -->
-            <id>prod</id>
+            <id>product</id>
             <properties>
-                <spark.active>prod</spark.active>
+                <spark.scope>provided</spark.scope>
             </properties>
         </profile>
     </profiles>
