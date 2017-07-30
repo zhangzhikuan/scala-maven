@@ -38,5 +38,3 @@ build.log
 #  ^\.pc/
 
 #SHITTY output not in target directory
-build.log
-.gitignore
