@@ -89,6 +89,10 @@
             <groupId>org.specs2</groupId>
             <artifactId>specs2-junit_${scala.tools.version}</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/main/scala</sourceDirectory>
